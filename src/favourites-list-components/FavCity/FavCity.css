@@ -1,0 +1,9 @@
+.body {
+    display: inline-block;
+    margin: auto 40px auto auto;
+}
+
+.btnDel {
+    float: right;
+}
+
