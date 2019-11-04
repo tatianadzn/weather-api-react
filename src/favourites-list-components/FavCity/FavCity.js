@@ -1,24 +1,29 @@
 import React from 'react';
 import WeatherDataRows from '../../Weather-data-rows';
+import { connect } from 'react-redux';
+import {deleteCityFromFavourites} from "../../store/actions/actionCreators";
 import './FavCity.css';
 
 class FavCity extends React.Component {
 
-    handleDelete = () => {
-        console.log(this.props.city + ' deleted');
-        let cityList = JSON.parse(localStorage.getItem('cityList'));
-        cityList = cityList.filter((city) => city !== this.props.city);
-        localStorage.setItem('cityList', JSON.stringify(cityList));
-    };
-
     render() {
         return (
             <div className={'body'}>
-                <button className={'btnDel'} onClick={this.handleDelete}> X </button>
+                <button className={'btnDel'} onClick={() => {this.props.deleteCityFromFavourites(this.props.city)}}> X </button>
                 <WeatherDataRows/>
             </div>
         );
     }
 }
 
-export default FavCity;
+const mapStateToProps = state => {
+    return {
+
+    };
+};
+
+const mapDispatchToProps = {
+  deleteCityFromFavourites
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavCity);

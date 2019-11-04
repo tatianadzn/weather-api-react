@@ -1,5 +1,7 @@
 import React from 'react';
 import './Favourites.css';
+import {connect} from 'react-redux';
+import {addCityToFavourites} from "../../store/actions/actionCreators";
 
 
 class Favourites extends React.Component {
@@ -15,18 +17,10 @@ class Favourites extends React.Component {
     };
 
     handleSubmit = event => {
-
-        //check if it exists, then add to localStorage !
-
         event.preventDefault();
-        let cityList = [];
-        if (JSON.parse(localStorage.getItem('cityList'))!= null) {
-            cityList = JSON.parse(localStorage.getItem('cityList'));
-        }
-        cityList.push(this.state.city);
-        localStorage.setItem('cityList', JSON.stringify(cityList));
-
+        //check if it exists, then add to localStorage !
         //get array into redux state
+        this.props.addCityToFavourites(this.state.city);
     };
 
 
@@ -42,4 +36,14 @@ class Favourites extends React.Component {
     }
 }
 
-export default Favourites;
+const mapStateToProps = state => {
+    return {
+        cityList: state.cityList
+    };
+};
+
+const mapDispatchToProps = {
+    addCityToFavourites
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favourites);

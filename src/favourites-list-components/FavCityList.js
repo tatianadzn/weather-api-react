@@ -1,22 +1,22 @@
 import React from 'react';
 import FavCity from './FavCity/FavCity'
+import {connect} from 'react-redux';
+import {getCityListFromLocalStorage} from '../store/actions/actionCreators';
 
 class FavCityList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cityList: []
-        }
+
     }
 
-    componentDidMount() {
-        this.setState({cityList: JSON.parse(localStorage.getItem('cityList'))});
+    componentWillMount() {
+        this.props.getCityListFromLocalStorage();
     }
 
     render() {
         return(
             <div>
-                {this.state.cityList !== null && this.state.cityList.map(city => {
+                {this.props.cityList !== null && this.props.cityList.map(city => {
                     return <FavCity
                             key={city}
                             city={city}
@@ -27,4 +27,14 @@ class FavCityList extends React.Component {
     }
 }
 
-export default FavCityList;
+const mapStateToProps = state => {
+    return {
+        cityList: state.cityList
+    };
+};
+
+const mapDispatchToProps = {
+    getCityListFromLocalStorage
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavCityList);
