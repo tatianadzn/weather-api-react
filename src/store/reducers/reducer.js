@@ -2,18 +2,26 @@ import {
     ADD_CITY_TO_FAVOURITES,
     DELETE_CITY_FROM_FAVOURITES,
     GET_CITYLIST_FROM_LOCALSTORAGE,
-    LOAD_WEATHER_PARAMETERS
+    DATA_IS_LOADING,
+    FETCH_DATA_ERROR,
+    FETCH_DATA_SUCCESSFUL,
+    FAV_DATA_IS_LOADING,
+    FAV_DATA_SUCCESSFUL
 } from '../actions/actionCreators';
 
 const defaultState = {
     currentWeather: {
         cityName: '',
-        temp: '',
+        weather: '',
         wind: '',
         pressure: '',
-        humidity: ''
+        humidity: '',
+        maintemp: '',
+        iconCode: ''
     },
-    cityList: []
+    cityList: [],
+    isLoading: true,
+    favWeatherIsLoading: false
 };
 const reducer = (state = defaultState, action) => {
 
@@ -42,10 +50,59 @@ const reducer = (state = defaultState, action) => {
           let array = state.cityList;
           array = array.filter((city) => city !== action.payload);
           localStorage.setItem('cityList', JSON.stringify(array));
+          localStorage.removeItem(action.payload);
           return {
               ...state,
               cityList: array
-          }
+          };
+      case DATA_IS_LOADING:
+          return {
+              ...state,
+              isLoading: action.payload
+          };
+      case FETCH_DATA_ERROR:
+          console.log('error');
+          return state;
+      case FETCH_DATA_SUCCESSFUL:
+          console.log('successful');
+          const cities = action.payload;
+          const cityObj = {
+              cityName: "City name: " + cities.name,
+              weather: "Weather: " + cities.weather[0].description,
+              wind: "Wind speed: " + cities.wind.speed + "m/sec",
+              pressure: "Pressure: " + cities.main.pressure,
+              humidity: "Humidity: " + cities.main.humidity + "%",
+              maintemp: cities.main.temp + "K",
+              iconCode: cities.weather[0].icon
+          };
+          return {
+              ...state,
+              currentWeather: cityObj,
+              isLoading: false
+          };
+      case FAV_DATA_IS_LOADING:
+          return{
+              ...state,
+              favDataIsLoading: action.payload
+          };
+      case FAV_DATA_SUCCESSFUL:
+          console.log('fav data successful');
+          const data = action.payload;
+          const obj = {
+              cityName: "City name: " + data.name,
+              weather: "Weather: " + data.weather[0].description,
+              wind: "Wind speed: " + data.wind.speed + "m/sec",
+              pressure: "Pressure: " + data.main.pressure,
+              humidity: "Humidity: " + data.main.humidity + "%",
+              maintemp: data.main.temp + "K",
+              iconCode: data.weather[0].icon
+          };
+          localStorage.setItem(data.name, JSON.stringify(obj));
+          console.log(JSON.parse(localStorage.getItem(data.name)));
+          return {
+              ...state,
+              favWeatherIsLoading: false
+          };
   }
   return state;
 };

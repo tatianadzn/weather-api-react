@@ -3,20 +3,21 @@ import WeatherDataRowsStyle from './style/WeatherDataRowsStyle.module.css';
 import RowStyle from './style/RowSlyle.module.css';
 
 class WeatherDataRows extends React.Component {
+    constructor(props){
+        super(props)
+    }
 
     render() {
         return(
             <div className={WeatherDataRowsStyle.WeatherDataBody}>
-                <div id={"rowname"} className={RowStyle.row}>Loading...</div>
-                <div id={"rowtemp"} className={RowStyle.row}>Loading...</div>
-                <div id={"rowwind"} className={RowStyle.row}>Loading...</div>
-                <div id={"rowpressure"} className={RowStyle.row}>Loading...</div>
-                <div id={"rowhumidity"} className={RowStyle.row}>Loading...</div>
+                <div className={RowStyle.row}>{this.props.cityName}</div>
+                <div className={RowStyle.row}>{this.props.weather}</div>
+                <div className={RowStyle.row}>{this.props.wind}</div>
+                <div className={RowStyle.row}>{this.props.pressure}</div>
+                <div className={RowStyle.row}>{this.props.humidity}</div>
             </div>
         )
     }
-
-
-};
+}
 
 export default WeatherDataRows;

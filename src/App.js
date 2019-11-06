@@ -3,8 +3,9 @@ import GEO from './GEO';
 import WeatherHere from './Weather-here';
 import Favourites from './favourites-list-components/Favourites/Favourites';
 import FavCityList from './favourites-list-components/FavCityList';
+import {connect} from 'react-redux';
+import {fetchData} from "./store/actions/actionCreators";
 import AppStyles from './style/App.module.css';
-import $ from "jquery";
 
 class App extends React.Component{
     constructor(props){
@@ -40,7 +41,9 @@ class App extends React.Component{
             return;
         }
 
-        output.innerHTML = "Locating...";
+        if (this.props.isLoading){
+            output.innerHTML = "Locating...";
+        }
 
         navigator.geolocation.getCurrentPosition(this.success.bind(this), this.error.bind(this));
 
@@ -49,46 +52,30 @@ class App extends React.Component{
     error(){
         this.setState({latitude: 60, longitude: 30});
         document.getElementById("output").innerHTML = "Cannot retrive your location";
-        this.getWeather(this.state.latitude, this.state.longitude);
+        const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&' + 'lat=' + this.state.latitude.toString() + '&lon=' + this.state.longitude.toString();
+        this.props.fetchData(url);
     }
     success(position){
         this.setState({latitude: position.coords.latitude, longitude: position.coords.longitude});
         document.getElementById("output").innerHTML = '';
-        this.getWeather(this.state.latitude, this.state.longitude);
+        const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&' + 'lat=' + this.state.latitude.toString() + '&lon=' + this.state.longitude.toString();
+        this.props.fetchData(url);
     }
 
     setIconURL(iconCode){
         //iconCode - 10n, for example. need to concat it inside the sample URL
-        this.setState({weatherIconURL: '//openweathermap.org/img/wn/' + iconCode + '@2x.png'})
-    }
-
-    async getWeather(latitude, longitude){
-        let code = '';
-        const result = await $.getJSON(
-            'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&?',
-            {lat: latitude, lon: longitude},
-            function (cities) {
-                //save to redux store
-
-            // document.getElementById('rowname').innerHTML = "City name: " + cities.name;
-            // document.getElementById('rowtemp').innerHTML = "Weather: " + cities.weather[0].description;
-            // document.getElementById('rowwind').innerHTML = "Wind speed: " + cities.wind.speed + "m/sec";
-            // document.getElementById('rowpressure').innerHTML = "Pressure: " + cities.main.pressure;
-            // document.getElementById('rowhumidity').innerHTML = "Humidity: " + cities.main.humidity + "%";
-            // document.getElementById('temp').innerHTML = cities.main.temp + "K";
-
-            // code = cities.weather[0].icon;
-        });
-        // .fail(function (error) {
-        //     if (error === 'Not found'){
-        //         document.getElementById('mypanel').innerText = 'City not found';
-        //     }
-        //     else {
-        //         document.getElementById('mypanel').innerText = 'Server error';
-        //     }
-        // })
-        this.setIconURL(code);
+        // this.setState({weatherIconURL: '//openweathermap.org/img/wn/' + iconCode + '@2x.png'})
     }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+      isLoading: state.isLoading
+  };
+};
+
+const mapDispatchToProps = {
+    fetchData
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
