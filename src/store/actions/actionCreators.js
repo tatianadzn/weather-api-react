@@ -31,8 +31,10 @@ export const fetchDataISuccessful = (result) => ({
     type: FETCH_DATA_SUCCESSFUL,
     payload: result
 });
-export const fetchDataError = () => ({
-    type: FETCH_DATA_ERROR
+export const fetchDataError = (cause, id) => ({
+    type: FETCH_DATA_ERROR,
+    payloadCause: cause,
+    payloadId: id
 });
 
 export const favDataIsLoading = bool => ({
@@ -45,21 +47,21 @@ export const favDataSuccessful = result => ({
     payload: result
 });
 
-export function fetchFavData(url) {
+export function fetchFavData(url, city) {
     return (dispatch) => {
         dispatch(favDataIsLoading(true));
 
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
+                    dispatch(deleteCityFromFavourites(city));
                     throw Error(response.statusText);
                 }
-
                 return response;
             })
             .then((result) => result.json())
             .then((result) => dispatch(favDataSuccessful(result)))
-            .catch(() => dispatch(fetchDataError()));
+            .catch(() => dispatch(fetchDataError('City is not found', 'fav')));
     };
 }
 
@@ -72,11 +74,10 @@ export function fetchData(url) {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
-
                 return response;
             })
             .then((result) => result.json())
             .then((result) => dispatch(fetchDataISuccessful(result)))
-            .catch(() => dispatch(fetchDataError()));
+            .catch(() => dispatch(fetchDataError('Bad connection with API service (retrieving your location)', 'current')));
     };
 }

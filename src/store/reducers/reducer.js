@@ -66,8 +66,20 @@ const reducer = (state = defaultState, action) => {
               isLoading: action.payload
           };
       case FETCH_DATA_ERROR:
-          console.log('error');
-          return state;
+          if (action.payloadId === 'fav'){
+              return {
+                  ...state,
+                  errorText: action.payloadCause,
+                  favWeatherIsLoading: false
+              };
+          } else {
+              return {
+                  ...state,
+                  errorText: action.payloadCause,
+                  isLoading: false
+              };
+          }
+
       case FETCH_DATA_SUCCESSFUL:
           console.log('successful');
           const cities = action.payload;

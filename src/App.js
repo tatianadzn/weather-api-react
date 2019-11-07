@@ -13,15 +13,19 @@ class App extends React.Component{
         this.state = {
             latitude: '',
             longitude: '',
-            weatherIconURL: ''
+            weatherIconURL: '',
+            errorText: ''
         }
     }
 
     render() {
         return(
             <div className={AppStyles.AppBody}>
-                <div id="out"></div>
                 <GEO getLocation={this.getLocation.bind(this)}/>
+                <div>
+                    {this.state.errorText}
+                    {this.state.msgForRestrictedGEO}
+                </div>
                 <WeatherHere/>
                 <Favourites onAddingNewCity={this.handleAddingNewCityToFav}/>
                 <FavCityList/>
@@ -34,15 +38,10 @@ class App extends React.Component{
     }
 
     getLocation() {
-        let output = document.getElementById("output");
 
         if (!navigator.geolocation){
-            output.innerHTML = "Geolocation is not supported by your browser";
+            this.setState({msgForRestrictedGEO: 'Geolocation is not supported by your browser'});
             return;
-        }
-
-        if (this.props.isLoading){
-            output.innerHTML = "Locating...";
         }
 
         navigator.geolocation.getCurrentPosition(this.success.bind(this), this.error.bind(this));
@@ -51,20 +50,20 @@ class App extends React.Component{
 
     error(){
         this.setState({latitude: 60, longitude: 30});
-        document.getElementById("output").innerHTML = "Cannot retrive your location";
+        this.setState({errorText: 'Cannot retrive your location'});
         const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&' + 'lat=' + this.state.latitude.toString() + '&lon=' + this.state.longitude.toString();
         this.props.fetchData(url);
     }
     success(position){
         this.setState({latitude: position.coords.latitude, longitude: position.coords.longitude});
-        document.getElementById("output").innerHTML = '';
+        this.setState({errorText: ''});
         const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&' + 'lat=' + this.state.latitude.toString() + '&lon=' + this.state.longitude.toString();
         this.props.fetchData(url);
     }
 
     handleAddingNewCityToFav = city => {
         const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&q=' + city;
-        this.props.fetchFavData(url);
+        this.props.fetchFavData(url, city);
     }
 }
 

@@ -3,12 +3,16 @@ import WeatherIconStyle from './style/WeatherIconStyle.module.css';
 
 class WeatherIcon extends React.Component {
     render() {
-        return(
-            <div id={"iconIMG"} className={WeatherIconStyle.WeatherIconBlock}>
-                <img src={this.props.iconURL} alt={"Loading..."}/>
-            </div>
-        )
+        if (this.props.iconURL !== ''){
+            return(
+                <div className={WeatherIconStyle.WeatherIconBlock}>
+                    <img src={this.props.iconURL} alt={"Loading..."}/>
+                </div>
+            )
+        } else {
+            return null;
+        }
     }
-};
+}
 
 export default WeatherIcon;

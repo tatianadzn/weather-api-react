@@ -2,6 +2,7 @@ import React from 'react';
 import WeatherIcon from './Weather-icon';
 import WeatherTemperature from './Weather-temperature';
 import WeatherDataRows from './Weather-data-rows';
+import Loader from './Loader/Loader';
 import { connect } from "react-redux";
 import WeatherHereStyles from './style/WeatherHereStyles.module.css';
 
@@ -10,12 +11,16 @@ class WeatherHere extends React.Component {
     render() {
         if (this.props.state.isLoading){
             return (
-                <div>Loading...</div>
+                <Loader/>
             )
         }
         else {
             const cityObj = this.props.state.currentWeather;
-            const iconURL = '//openweathermap.org/img/wn/' + cityObj.iconCode + '@2x.png';
+            let iconURL = '';
+            if (cityObj.iconCode !== '') {
+                iconURL = '//openweathermap.org/img/wn/' + cityObj.iconCode + '@2x.png';
+            }
+
             return (
                 <div className={WeatherHereStyles.WeatherHereBlock}>
                     <WeatherIcon iconURL={iconURL}/>
@@ -30,8 +35,6 @@ class WeatherHere extends React.Component {
                 </div>
             )
         }
-
-
     }
 }
 

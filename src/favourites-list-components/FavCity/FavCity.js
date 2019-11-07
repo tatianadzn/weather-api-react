@@ -1,5 +1,6 @@
 import React from 'react';
 import WeatherDataRows from '../../Weather-data-rows';
+import Loader from '../../Loader/Loader';
 import { connect } from 'react-redux';
 import {deleteCityFromFavourites} from "../../store/actions/actionCreators";
 import './FavCity.css';
@@ -27,9 +28,10 @@ class FavCity extends React.Component {
         else {
             if (this.props.isLoading){
                 return (
-                    <div>Loader...</div>
+                    <Loader/>
                 );
             }
+            else return null
         }
     }
 }
