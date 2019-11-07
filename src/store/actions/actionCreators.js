@@ -7,8 +7,6 @@ export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 export const FAV_DATA_IS_LOADING = 'FAV_DATA_IS_LOADING';
 export const FAV_DATA_SUCCESSFUL = 'FAV_DATA_SUCCESSFUL';
 
-
-
 export const addCityToFavourites = (cityList) => ({
     type: ADD_CITY_TO_FAVOURITES,
     payload: cityList

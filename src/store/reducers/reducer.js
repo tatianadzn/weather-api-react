@@ -6,7 +6,9 @@ import {
     FETCH_DATA_ERROR,
     FETCH_DATA_SUCCESSFUL,
     FAV_DATA_IS_LOADING,
-    FAV_DATA_SUCCESSFUL
+    FAV_DATA_SUCCESSFUL,
+    ICON_FETCH_SUCCESSFUL,
+    ICON_IS_LOADING
 } from '../actions/actionCreators';
 
 const defaultState = {
@@ -83,7 +85,7 @@ const reducer = (state = defaultState, action) => {
       case FAV_DATA_IS_LOADING:
           return{
               ...state,
-              favWeatherIsLoading: true
+              favWeatherIsLoading: action.payload
           };
       case FAV_DATA_SUCCESSFUL:
           console.log('fav data successful');

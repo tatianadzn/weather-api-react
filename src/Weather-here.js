@@ -15,9 +15,10 @@ class WeatherHere extends React.Component {
         }
         else {
             const cityObj = this.props.state.currentWeather;
+            const iconURL = '//openweathermap.org/img/wn/' + cityObj.iconCode + '@2x.png';
             return (
                 <div className={WeatherHereStyles.WeatherHereBlock}>
-                    <WeatherIcon iconURL={this.props.iconURL}/>
+                    <WeatherIcon iconURL={iconURL}/>
                     <WeatherTemperature/>
                     <WeatherDataRows
                         cityName={cityObj.cityName}

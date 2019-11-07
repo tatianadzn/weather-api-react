@@ -22,7 +22,7 @@ class App extends React.Component{
             <div className={AppStyles.AppBody}>
                 <div id="out"></div>
                 <GEO getLocation={this.getLocation.bind(this)}/>
-                <WeatherHere iconURL={this.state.weatherIconURL}/>
+                <WeatherHere/>
                 <Favourites onReload={this.handleReload}/>
                 <FavCityList/>
             </div>
@@ -60,11 +60,6 @@ class App extends React.Component{
         document.getElementById("output").innerHTML = '';
         const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&' + 'lat=' + this.state.latitude.toString() + '&lon=' + this.state.longitude.toString();
         this.props.fetchData(url);
-    }
-
-    setIconURL(iconCode){
-        //iconCode - 10n, for example. need to concat it inside the sample URL
-        // this.setState({weatherIconURL: '//openweathermap.org/img/wn/' + iconCode + '@2x.png'})
     }
 
     handleReload = city => {
