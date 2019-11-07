@@ -8,7 +8,8 @@ class Favourites extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            city: ''
+            city: '',
+            errorText: ''
         }
     }
 
@@ -18,10 +19,16 @@ class Favourites extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        //check if it exists, then add to localStorage !
-        //get array into redux state
-        this.props.addCityToFavourites(this.state.city);
-        this.props.onReload(this.state.city);
+        if (JSON.parse(localStorage.getItem(this.state.city)) === null){
+            this.props.addCityToFavourites(this.state.city);
+            this.props.onAddingNewCity(this.state.city);
+        }else{
+            this.setState({errorText: this.state.city + ': such city has already been added to favourites'});
+            setTimeout(() => {
+                this.setState({errorText:''});
+            }, 4000)
+        }
+        document.getElementById('addCityInput').value = '';
     };
 
 
@@ -29,9 +36,10 @@ class Favourites extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type={'text'} onChange={this.handleChange}/>
+                    <input id={'addCityInput'} type={'text'} onChange={this.handleChange}/>
                     <input type={'submit'} value={'Add'}/>
                 </form>
+                <div>{this.state.errorText}</div>
             </div>
         );
     }
@@ -39,7 +47,8 @@ class Favourites extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        cityList: state.cityList
+        cityList: state.cityList,
+        errorText: state.errorText
     };
 };
 

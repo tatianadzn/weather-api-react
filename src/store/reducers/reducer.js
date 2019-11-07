@@ -23,16 +23,19 @@ const defaultState = {
     },
     cityList: [],
     isLoading: true,
-    favWeatherIsLoading: false
+    favWeatherIsLoading: false,
+    errorText: ''
 };
 const reducer = (state = defaultState, action) => {
 
   switch (action.type) {
       case ADD_CITY_TO_FAVOURITES:
           //add city to localStorage
-          let cityList = [];
-          if (JSON.parse(localStorage.getItem('cityList'))!= null) {
+          let cityList = JSON.parse(localStorage.getItem('cityList'));
+          if (cityList !== null) {
               cityList = JSON.parse(localStorage.getItem('cityList'));
+          } else {
+              cityList = [];
           }
           cityList.push(action.payload);
           localStorage.setItem('cityList', JSON.stringify(cityList));

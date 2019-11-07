@@ -23,14 +23,14 @@ class App extends React.Component{
                 <div id="out"></div>
                 <GEO getLocation={this.getLocation.bind(this)}/>
                 <WeatherHere/>
-                <Favourites onReload={this.handleReload}/>
+                <Favourites onAddingNewCity={this.handleAddingNewCityToFav}/>
                 <FavCityList/>
             </div>
         )
     }
 
     componentDidMount() {
-        // this.getLocation();
+        this.getLocation();
     }
 
     getLocation() {
@@ -62,8 +62,7 @@ class App extends React.Component{
         this.props.fetchData(url);
     }
 
-    handleReload = city => {
-        //reload?
+    handleAddingNewCityToFav = city => {
         const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&q=' + city;
         this.props.fetchFavData(url);
     }
