@@ -4,7 +4,7 @@ import WeatherHere from './Weather-here';
 import Favourites from './favourites-list-components/Favourites/Favourites';
 import FavCityList from './favourites-list-components/FavCityList';
 import {connect} from 'react-redux';
-import {fetchData} from "./store/actions/actionCreators";
+import {fetchData, fetchFavData} from "./store/actions/actionCreators";
 import AppStyles from './style/App.module.css';
 
 class App extends React.Component{
@@ -23,7 +23,7 @@ class App extends React.Component{
                 <div id="out"></div>
                 <GEO getLocation={this.getLocation.bind(this)}/>
                 <WeatherHere iconURL={this.state.weatherIconURL}/>
-                <Favourites/>
+                <Favourites onReload={this.handleReload}/>
                 <FavCityList/>
             </div>
         )
@@ -66,6 +66,12 @@ class App extends React.Component{
         //iconCode - 10n, for example. need to concat it inside the sample URL
         // this.setState({weatherIconURL: '//openweathermap.org/img/wn/' + iconCode + '@2x.png'})
     }
+
+    handleReload = city => {
+        //reload?
+        const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&q=' + city;
+        this.props.fetchFavData(url);
+    }
 }
 
 const mapStateToProps = state => {
@@ -75,7 +81,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    fetchData
+    fetchData, fetchFavData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

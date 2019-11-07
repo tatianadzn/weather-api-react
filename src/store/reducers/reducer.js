@@ -83,7 +83,7 @@ const reducer = (state = defaultState, action) => {
       case FAV_DATA_IS_LOADING:
           return{
               ...state,
-              favDataIsLoading: action.payload
+              favWeatherIsLoading: true
           };
       case FAV_DATA_SUCCESSFUL:
           console.log('fav data successful');
@@ -99,6 +99,7 @@ const reducer = (state = defaultState, action) => {
           };
           localStorage.setItem(data.name, JSON.stringify(obj));
           console.log(JSON.parse(localStorage.getItem(data.name)));
+          console.log(state.favWeatherIsLoading);
           return {
               ...state,
               favWeatherIsLoading: false

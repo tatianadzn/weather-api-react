@@ -21,6 +21,7 @@ class Favourites extends React.Component {
         //check if it exists, then add to localStorage !
         //get array into redux state
         this.props.addCityToFavourites(this.state.city);
+        this.props.onReload(this.state.city);
     };
 
 
