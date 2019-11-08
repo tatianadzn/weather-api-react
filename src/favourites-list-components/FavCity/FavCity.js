@@ -7,7 +7,6 @@ import './FavCity.css';
 
 class FavCity extends React.Component {
 
-
     render() {
         const cityObj = JSON.parse(localStorage.getItem(this.props.city));
 
@@ -20,7 +19,7 @@ class FavCity extends React.Component {
                 <div className={'body'}>
 
                     <button className={'btnDel'} onClick={() => {this.props.deleteCityFromFavourites(this.props.city)}}> X </button>
-                    <img className={'iconIMG'} src={iconURL} alter="Loading..."/>
+                    <img className={'iconIMG'} src={iconURL} alt="Loading..."/>
                     <WeatherDataRows
                         cityName={cityObj.cityName}
                         weather={cityObj.weather}

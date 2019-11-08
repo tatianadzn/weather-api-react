@@ -4,12 +4,8 @@ import {connect} from 'react-redux';
 import {getCityListFromLocalStorage} from '../store/actions/actionCreators';
 
 class FavCityList extends React.Component {
-    constructor(props) {
-        super(props);
 
-    }
-
-    componentWillMount() {
+    componentDidMount() {
         this.props.getCityListFromLocalStorage();
     }
 

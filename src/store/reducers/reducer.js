@@ -119,8 +119,9 @@ const reducer = (state = defaultState, action) => {
               ...state,
               favWeatherIsLoading: false
           };
+      default:
+          return state;
   }
-  return state;
 };
 
 export default reducer;

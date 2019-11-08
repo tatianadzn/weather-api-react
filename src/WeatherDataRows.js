@@ -3,9 +3,6 @@ import WeatherDataRowsStyle from './style/WeatherDataRowsStyle.module.css';
 import RowStyle from './style/RowStyle.module.css';
 
 class WeatherDataRows extends React.Component {
-    constructor(props){
-        super(props)
-    }
 
     render() {
         return(

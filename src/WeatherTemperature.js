@@ -4,10 +4,6 @@ import {connect} from 'react-redux';
 import WeatherTemperatureStyle from './style/WeatherTemperatureStyle.module.css';
 
 class WeatherTemperature extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {
         if (this.props.isLoading) {
