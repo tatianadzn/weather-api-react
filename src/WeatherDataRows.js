@@ -1,6 +1,6 @@
 import React from 'react';
 import WeatherDataRowsStyle from './style/WeatherDataRowsStyle.module.css';
-import RowStyle from './style/RowSlyle.module.css';
+import RowStyle from './style/RowStyle.module.css';
 
 class WeatherDataRows extends React.Component {
     constructor(props){

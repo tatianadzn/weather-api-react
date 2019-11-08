@@ -9,7 +9,7 @@ class GEO extends React.Component{
                 <button
                     className={GEOStyles.button}
                     onClick={this.props.getLocation}
-                >GEO Button</button>
+                >Update My Location</button>
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React from 'react';
-import WeatherIcon from './Weather-icon';
-import WeatherTemperature from './Weather-temperature';
-import WeatherDataRows from './Weather-data-rows';
+import WeatherIcon from './WeatherIcon';
+import WeatherTemperature from './WeatherTemperature';
+import WeatherDataRows from './WeatherDataRows';
 import Loader from './Loader/Loader';
 import { connect } from "react-redux";
 import WeatherHereStyles from './style/WeatherHereStyles.module.css';

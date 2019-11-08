@@ -6,9 +6,7 @@ import {
     FETCH_DATA_ERROR,
     FETCH_DATA_SUCCESSFUL,
     FAV_DATA_IS_LOADING,
-    FAV_DATA_SUCCESSFUL,
-    ICON_FETCH_SUCCESSFUL,
-    ICON_IS_LOADING
+    FAV_DATA_SUCCESSFUL
 } from '../actions/actionCreators';
 
 const defaultState = {

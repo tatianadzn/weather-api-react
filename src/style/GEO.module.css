@@ -8,4 +8,9 @@
     width: 400px;
     height: 30px;
     float: right;
+    border-radius: 5px;
+    border-color: grey;
+    color: white;
+    background-color: grey;
+    cursor: pointer;
 }

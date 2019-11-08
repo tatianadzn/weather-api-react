@@ -1,10 +1,10 @@
 import React from 'react';
-import './Favourites.css';
+import './AddForm.css';
 import {connect} from 'react-redux';
 import {addCityToFavourites} from "../../store/actions/actionCreators";
 
 
-class Favourites extends React.Component {
+class AddForm extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -28,7 +28,7 @@ class Favourites extends React.Component {
                 this.setState({errorText:''});
             }, 4000)
         }
-        document.getElementById('addCityInput').value = '';
+        this.setState({city: ''});
     };
 
 
@@ -36,8 +36,8 @@ class Favourites extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input id={'addCityInput'} type={'text'} onChange={this.handleChange}/>
-                    <input type={'submit'} value={'Add'}/>
+                    <input className={'inputForm'} value={this.state.city} type={'text'} onChange={this.handleChange}/>
+                    <input className={'btnAdd'} type={'submit'} value={'Add'}/>
                 </form>
                 <div>{this.state.errorText}</div>
             </div>
@@ -56,4 +56,4 @@ const mapDispatchToProps = {
     addCityToFavourites
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favourites);
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);

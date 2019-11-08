@@ -1,7 +1,7 @@
 import React from 'react';
 import GEO from './GEO';
-import WeatherHere from './Weather-here';
-import Favourites from './favourites-list-components/Favourites/Favourites';
+import WeatherHere from './WeatherHere';
+import Favourites from './favourites-list-components/add-form/AddForm';
 import FavCityList from './favourites-list-components/FavCityList';
 import {connect} from 'react-redux';
 import {fetchData, fetchFavData} from "./store/actions/actionCreators";
@@ -27,6 +27,7 @@ class App extends React.Component{
                     {this.state.msgForRestrictedGEO}
                 </div>
                 <WeatherHere/>
+                <div className={AppStyles.favCities} >Favourite Cities</div>
                 <Favourites onAddingNewCity={this.handleAddingNewCityToFav}/>
                 <FavCityList/>
             </div>
