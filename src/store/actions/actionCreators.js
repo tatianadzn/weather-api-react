@@ -42,25 +42,29 @@ export const favDataIsLoading = bool => ({
    payload: bool
 });
 
-export const favDataSuccessful = result => ({
+export const favDataSuccessful = (result, city) => ({
     type: FAV_DATA_SUCCESSFUL,
-    payload: result
+    payload: result,
+    city: city
 });
 
-export function fetchFavData(url, city) {
+export function fetchFavData(city) {
+    const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&q=' + city;
+    console.log(url + ' will be fetched');
     return (dispatch) => {
-        dispatch(favDataIsLoading(true));
 
         fetch(url)
             .then((response) => {
+                console.log('we got a response!');
                 if (!response.ok) {
                     dispatch(deleteCityFromFavourites(city));
+                    //I could delete next line
                     throw Error(response.statusText);
                 }
                 return response;
             })
             .then((result) => result.json())
-            .then((result) => dispatch(favDataSuccessful(result)))
+            .then((result) => dispatch(favDataSuccessful(result, city)))
             .catch(() => dispatch(fetchDataError('City is not found', 'fav')));
     };
 }

@@ -9,17 +9,27 @@ class FavCityList extends React.Component {
         this.props.getCityListFromLocalStorage();
     }
 
+
+
     render() {
-        return (
-            <div>
-                {this.props.cityList !== null && this.props.cityList.map(city => {
-                    return <FavCity
-                    key={city}
-                    city={city}
-                    />
-                })}
-            </div>
-        )
+        if (this.props.cityList !== null){
+            return (
+                <div>
+                    {this.props.cityList !== null && this.props.cityList.map(city => {
+                        return (
+                            <FavCity
+                                key={city.name}
+                                city={city.name}
+                            />
+                        )
+                    })}
+                </div>
+            )
+        }
+        else {
+            return null;
+        }
+
     }
 }
 

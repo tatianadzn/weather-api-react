@@ -21,7 +21,7 @@ class AddForm extends React.Component {
         event.preventDefault();
         if (JSON.parse(localStorage.getItem(this.state.city)) === null){
             this.props.addCityToFavourites(this.state.city);
-            this.props.onAddingNewCity(this.state.city);
+            // this.props.onAddingNewCity(this.state.city);
         }else{
             this.setState({errorText: this.state.city + ': such city has already been added to favourites'});
             setTimeout(() => {

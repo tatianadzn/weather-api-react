@@ -63,8 +63,7 @@ class App extends React.Component{
     }
 
     handleAddingNewCityToFav = city => {
-        const url = 'https://api.openweathermap.org/data/2.5/weather?appid=41210752a269dfb2e2a8167a0910c3a1&q=' + city;
-        this.props.fetchFavData(url, city);
+        this.props.fetchFavData(city);
     }
 }
 
