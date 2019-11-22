@@ -1,7 +1,7 @@
 import React from 'react';
-import Loader from './Loader/Loader';
+import Loader from '../Loader/Loader';
 import {connect} from 'react-redux';
-import WeatherTemperatureStyle from './style/WeatherTemperatureStyle.module.css';
+import WeatherTemperatureStyle from './WeatherTemperatureStyle.module.css';
 
 class WeatherTemperature extends React.Component {
 

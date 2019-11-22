@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherIconStyle from './style/WeatherIconStyle.module.css';
+import WeatherIconStyle from './WeatherIconStyle.module.css';
 
 class WeatherIcon extends React.Component {
     render() {

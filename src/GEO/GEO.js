@@ -1,5 +1,5 @@
 import React from 'react'
-import GEOStyles from './style/GEO.module.css';
+import GEOStyles from './GEO.module.css';
 
 class GEO extends React.Component{
 

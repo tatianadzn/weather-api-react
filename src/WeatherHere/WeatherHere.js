@@ -1,10 +1,10 @@
 import React from 'react';
-import WeatherIcon from './WeatherIcon';
-import WeatherTemperature from './WeatherTemperature';
-import WeatherDataRows from './WeatherDataRows';
-import Loader from './Loader/Loader';
+import WeatherIcon from '../WeatherIcon/WeatherIcon';
+import WeatherTemperature from '../WeatherTemperature/WeatherTemperature';
+import WeatherDataRows from '../WeatherDataRows/WeatherDataRows';
+import Loader from '../Loader/Loader';
 import { connect } from "react-redux";
-import WeatherHereStyles from './style/WeatherHereStyles.module.css';
+import WeatherHereStyles from './WeatherHereStyles.module.css';
 
 class WeatherHere extends React.Component {
 

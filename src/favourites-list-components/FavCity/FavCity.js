@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherDataRows from '../../WeatherDataRows';
+import WeatherDataRows from '../../WeatherDataRows/WeatherDataRows';
 import Loader from '../../Loader/Loader';
 import { connect } from 'react-redux';
 import {deleteCityFromFavourites, fetchFavData} from "../../store/actions/actionCreators";

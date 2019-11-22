@@ -1,11 +1,11 @@
 import React from 'react';
-import GEO from './GEO';
-import WeatherHere from './WeatherHere';
-import Favourites from './favourites-list-components/add-form/AddForm';
-import FavCityList from './favourites-list-components/FavCityList';
+import GEO from '../GEO/GEO';
+import WeatherHere from '../WeatherHere/WeatherHere';
+import Favourites from '../favourites-list-components/add-form/AddForm';
+import FavCityList from '../favourites-list-components/FavCityList';
 import {connect} from 'react-redux';
-import {fetchData, fetchFavData} from "./store/actions/actionCreators";
-import AppStyles from './style/App.module.css';
+import {fetchData, fetchFavData} from "../store/actions/actionCreators";
+import AppStyles from './App.module.css';
 
 class App extends React.Component{
     constructor(props){
