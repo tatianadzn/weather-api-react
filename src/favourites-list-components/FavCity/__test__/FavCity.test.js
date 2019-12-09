@@ -8,17 +8,9 @@ const mockStore = configureStore([]);
 
 describe('FavCity testing', () => {
     let store;
-    beforeEach(() => {
+
+    it('should render with given state from Redux store: loading is finished', () => {
         store = mockStore({
-            currentWeather: {
-                cityName: 'London',
-                weather: 'test',
-                wind: 'test',
-                pressure: 'test',
-                humidity: 'test',
-                maintemp: 'test',
-                iconCode: 'test'
-            },
             cityList: [
                 {
                     name: 'London',
@@ -27,14 +19,30 @@ describe('FavCity testing', () => {
                     pressure: 'test',
                     humidity: 'test',
                     maintemp: 'test',
-                    iconCode: '10n'
-                }, 'Moscow'],
-            isLoading: false,
-            errorText: ''
+                    iconCode: '10n',
+                    isLoading: false
+                }]
         });
+        const tree = renderer
+            .create(<Provider store={store}><FavCity key={'London'} city={'London'}/></Provider>)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
     });
 
-    it('should render with given state from Redux store', () => {
+    it('should render with given state from Redux store: loading is not finished', () => {
+        store = mockStore({
+            cityList: [
+                {
+                    name: 'London',
+                    weather: 'test',
+                    wind: 'test',
+                    pressure: 'test',
+                    humidity: 'test',
+                    maintemp: 'test',
+                    iconCode: '10n',
+                    isLoading: true
+                }]
+        });
         const tree = renderer
             .create(<Provider store={store}><FavCity key={'London'} city={'London'}/></Provider>)
             .toJSON();

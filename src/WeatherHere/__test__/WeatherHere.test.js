@@ -8,7 +8,8 @@ const mockStore = configureStore([]);
 
 describe('WeatherHere testing', () => {
     let store;
-    beforeEach(() => {
+
+    it('should render with given state from Redux store: loading is true', () => {
         store = mockStore({
             currentWeather: {
                 cityName: 'London',
@@ -19,12 +20,46 @@ describe('WeatherHere testing', () => {
                 maintemp: 'test',
                 iconCode: 'test'
             },
-            isLoading: false,
-            errorText: ''
+            isLoading: true
         });
+        const tree = renderer
+            .create(<Provider store={store}><WeatherHere/></Provider>)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
     });
 
-    it('should render with given state from Redux store', () => {
+    it('should render with given state from Redux store: loading is false, icon code is not empty', () => {
+        store = mockStore({
+            currentWeather: {
+                cityName: 'London',
+                weather: 'test',
+                wind: 'test',
+                pressure: 'test',
+                humidity: 'test',
+                maintemp: 'test',
+                iconCode: 'test'
+            },
+            isLoading: false
+        });
+        const tree = renderer
+            .create(<Provider store={store}><WeatherHere/></Provider>)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should render with given state from Redux store: loading is false, icon code is empty', () => {
+        store = mockStore({
+            currentWeather: {
+                cityName: 'London',
+                weather: 'test',
+                wind: 'test',
+                pressure: 'test',
+                humidity: 'test',
+                maintemp: 'test',
+                iconCode: ''
+            },
+            isLoading: false
+        });
         const tree = renderer
             .create(<Provider store={store}><WeatherHere/></Provider>)
             .toJSON();

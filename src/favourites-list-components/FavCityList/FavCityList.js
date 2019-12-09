@@ -1,7 +1,7 @@
 import React from 'react';
-import FavCity from './FavCity/FavCity'
+import FavCity from '../FavCity/FavCity'
 import {connect} from 'react-redux';
-import {getCityListFromLocalStorage} from '../store/actions/actionCreators';
+import {getCityListFromLocalStorage} from '../../store/actions/actionCreators';
 
 class FavCityList extends React.Component {
 
@@ -9,13 +9,11 @@ class FavCityList extends React.Component {
         this.props.getCityListFromLocalStorage();
     }
 
-
-
     render() {
         if (this.props.cityList !== null){
             return (
                 <div>
-                    {this.props.cityList !== null && this.props.cityList.map(city => {
+                    {this.props.cityList.map(city => {
                         return (
                             <FavCity
                                 key={city.name}

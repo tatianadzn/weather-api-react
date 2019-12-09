@@ -8,7 +8,8 @@ const mockStore = configureStore([]);
 
 describe('App testing', () => {
     let store;
-    beforeEach(() => {
+
+    it('should render with given state from Redux store: navigator error', () => {
         store = mockStore({
             currentWeather: {
                 cityName: 'London',
@@ -20,6 +21,71 @@ describe('App testing', () => {
                 iconCode: 'test',
                 isLoading: false
             },
+            cityList: [],
+            isLoading: false,
+            errorText: 'some error text'
+        });
+        const tree = renderer
+            .create(<Provider store={store}><App/></Provider>)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should render with given state from Redux store: weather here is loading', () => {
+        store = mockStore({
+            isLoading: true,
+            errorText: '',
+            cityList: []
+        });
+        const tree = renderer
+            .create(<Provider store={store}><App/></Provider>)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should render with given state from Redux store: cityList with 2 loading cities', () => {
+        store = mockStore({
+            currentWeather: {
+                cityName: 'London',
+                weather: 'test',
+                wind: 'test',
+                pressure: 'test',
+                humidity: 'test',
+                maintemp: 'test',
+                iconCode: 'test'
+            },
+            cityList: [
+                {
+                    name: 'London',
+                    weather: '',
+                    isLoading: true
+                },
+                {
+                    name: 'Moscow',
+                    weather: '',
+                    isLoading: true
+                }
+            ],
+            isLoading: false,
+            error: ''
+        });
+        const tree = renderer
+            .create(<Provider store={store}><App/></Provider>)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('should render with given state from Redux store: cityList with 2 loaded cities', () => {
+        store = mockStore({
+            currentWeather: {
+                cityName: 'London',
+                weather: 'test',
+                wind: 'test',
+                pressure: 'test',
+                humidity: 'test',
+                maintemp: 'test',
+                iconCode: 'test'
+            },
             cityList: [
                 {
                     name: 'London',
@@ -28,7 +94,7 @@ describe('App testing', () => {
                     pressure: 'test',
                     humidity: 'test',
                     maintemp: 'test',
-                    iconCode: '10n',
+                    iconCode: 'test',
                     isLoading: false
                 },
                 {
@@ -38,15 +104,13 @@ describe('App testing', () => {
                     pressure: 'test',
                     humidity: 'test',
                     maintemp: 'test',
-                    iconCode: '10n',
+                    iconCode: 'test',
                     isLoading: false
-                }],
+                }
+            ],
             isLoading: false,
-            errorText: ''
+            error: ''
         });
-    });
-
-    it('should render with given state from Redux store', () => {
         const tree = renderer
             .create(<Provider store={store}><App/></Provider>)
             .toJSON();
